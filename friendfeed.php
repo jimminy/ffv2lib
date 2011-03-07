@@ -211,7 +211,7 @@ class FriendFeed
 		$post_args = array("body" => $body);
 		if ($link) $post_args["link"] = $link;
 		if ($comment) $post_args["comment"] = $comment;
-		if ($room) $post_args["to"] = $room;
+		if ($rooms) $post_args["to"] = $rooms;
 		if ($image_urls) $post_args["image_url"] = $image_urls;
 		if ($audio_urls) $post_args["audio_url"] = $audio_urls;
 
