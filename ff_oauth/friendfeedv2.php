@@ -206,7 +206,7 @@ class FriendFeed
             "entry" => $entry_id,
         ));
     }
-
+    //Allows user to modify their theme settings.
     function edit_theme($theme, $bg, $box, $bar)
     {
         $this->fetch("/theme", null, array(
@@ -215,6 +215,19 @@ class FriendFeed
             "box" => $box,
             "bar" => $bar,
         ));
+    }
+    // Returns the user's subscribers, subscriptions, and services. 
+    function fetch_feedinfo($nickname) {
+        return $this->fetch("/feedinfo/" . urlencode($nickname));
+    }
+    // Return the feeds displayed on the right hand side of the FriendFeed website for the authenticated user.
+    function fetch_feedlist() {
+        return $this->fetch("/feedlist");
+    }
+    //Get the profile picture for the specified feed
+    function fetch_picture($nickname, $size='medium'){
+        $picture = "http://friendfeed-api.com/v2/picture/" . urlencode($nickname).'?size='.$size;
+        return $picture;
     }
 
     // Publishes the given link/title to the authenticated user's feed.
@@ -310,7 +323,6 @@ class FriendFeed
             }
             $url .= "?" . join("&", $pairs);
         }
-
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_USERAGENT, $this->ua);
