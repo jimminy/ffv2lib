@@ -24,8 +24,6 @@ assert(function_exists("curl_init"));
 
 class FriendFeed
 {
-    //Oauth hasn't been added and couldn't be tested do to the inability 
-    //of registering an app. 
 
     protected $consumer = null;
     protected $consumer_key = '';
@@ -36,7 +34,8 @@ class FriendFeed
 
 
     function FriendFeed_OAuth($consumer_key, $consumer_secret, $access_token = null, $ua = 'FFv2-API/v0.4') {
-        $ff = new FriendFeed;
+        $ff = new FriendFeed();
+        $ff->auth_type = 'OAuth';
         $ff->consumer_key = $consumer_key;
         $ff->consumer_secret = $consumer_secret;
         $ff->ua = $ua;
@@ -49,6 +48,7 @@ class FriendFeed
     
     function FriendFeed_Basic($auth_nickname=null, $auth_key=null, $ua = 'FFv2-API/v0.4') {
         $ff = new FriendFeed();
+        $ff->auth_type = 'Basic';
         $ff->auth_nickname = $auth_nickname;
         $ff->auth_key = $auth_key;
         $ff->ua;
