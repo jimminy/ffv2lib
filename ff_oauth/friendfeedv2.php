@@ -33,7 +33,7 @@ class FriendFeed
     protected $ua = '';
 
 
-    function FriendFeed_OAuth($consumer_key, $consumer_secret, $access_token = null, $ua = 'FFv2-API/v0.4') {
+    static function FriendFeed_OAuth($consumer_key, $consumer_secret, $access_token = null, $ua = 'FFv2-API/v0.4') {
         $ff = new FriendFeed();
         $ff->auth_type = 'OAuth';
         $ff->consumer_key = $consumer_key;
@@ -46,7 +46,7 @@ class FriendFeed
         return $ff;
     }
     
-    function FriendFeed_Basic($auth_nickname=null, $auth_key=null, $ua = 'FFv2-API/v0.4') {
+    static function FriendFeed_Basic($auth_nickname=null, $auth_key=null, $ua = 'FFv2-API/v0.4') {
         $ff = new FriendFeed();
         $ff->auth_type = 'Basic';
         $ff->auth_nickname = $auth_nickname;
@@ -327,13 +327,13 @@ class FriendFeed
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_USERAGENT, $this->ua);
 
-        if ($this->auth_nickname && $this->auth_key) {
+        if (isset($this->auth_nickname) && isset($this->auth_key)) {
             curl_setopt($curl, CURLOPT_USERPWD,
                 $this->auth_nickname . ":" . $this->auth_key);
             curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         }
 
-        if ($post_args && $method == null) {
+        if (isset($post_args) && $method == null) {
             
             curl_setopt($curl, CURLOPT_POST, TRUE);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post_args);
